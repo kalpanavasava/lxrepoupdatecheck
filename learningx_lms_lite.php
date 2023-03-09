@@ -631,6 +631,32 @@ $github_key = get_option('github_key');
 
 $myUpdateChecker->setAuthentication($github_key); 
 
+
+/** --------------- **/
+add_action( 'plugins_loaded', 'my_plugin_override' );
+
+function my_plugin_override() {
+    update_option( 'testingupdateoption', rand() );
+}
+
+/** upgrader process **/
+add_action( 'upgrader_process_complete', 'CustomUpgraderProcess',10, 2 );
+function CustomUpgraderProcess( $upgrader_object, $options ) {
+    $current_plugin_path_name = plugin_basename( __FILE__ );
+	
+    if ($options['action'] == 'update' && $options['type'] == 'plugin' ) {
+		foreach($options['plugins'] as $each_plugin) {
+			if ($each_plugin==$current_plugin_path_name) {
+				FnCreateDefaultPlaylist();
+				create_lms_pages();
+			}
+		}
+    }
+}
+
+/** --------------- **/
+
+
 /* default lx lms settings */
 /* if(empty($frontend_icon)){
 	register_activation_hook(__FILE__,'store_default_frontend_icon_settings');
@@ -962,26 +988,6 @@ function LMSBreakPointExclude(){
 }
 add_action('wp_head','LMSBreakPointExclude');
 
-/** upgrader process **/
-add_action( 'upgrader_process_complete', 'CustomUpgraderProcess',10, 2 );
-function CustomUpgraderProcess( $upgrader_object, $options ) {
-    $current_plugin_path_name = plugin_basename( __FILE__ );
-	update_option( 'testingupdateoption','working' );
-    if ($options['action'] == 'update' && $options['type'] == 'plugin' ) {
-		foreach($options['plugins'] as $each_plugin) {
-			if ($each_plugin==$current_plugin_path_name) {
-				FnCreateDefaultPlaylist();
-				create_lms_pages();
-			}
-		}
-    }
-}
-
-/* add_action('init','CallTocreateTheDefaultplaylist');
-function CallTocreateTheDefaultplaylist(){
-	FnCreateDefaultPlaylist();
-}
- */
 function FnCreateDefaultPlaylist(){
 	$allUser = get_users();
 	foreach( $allUser as $usersData ){
