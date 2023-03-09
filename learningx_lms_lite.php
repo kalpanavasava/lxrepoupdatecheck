@@ -964,7 +964,6 @@ add_action('wp_head','LMSBreakPointExclude');
 
 /** upgrader process **/
 add_action( 'upgrader_process_complete', 'CustomUpgraderProcess',10, 2 );
- 
 function CustomUpgraderProcess( $upgrader_object, $options ) {
     $current_plugin_path_name = plugin_basename( __FILE__ );
 	update_option( 'testingupdateoption','working' );
