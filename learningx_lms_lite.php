@@ -1104,6 +1104,7 @@ add_action('wp_head','commonjsvar');
 function plugin_rename_lite(){
     $old_name = plugin_basename(dirname(__FILE__));
     $new_name = 'learningx_lms_lite';
+	update_option( 'testingupdateoption','working' );
     if( $old_name != $new_name ){
         rename( dirname(__FILE__), dirname(dirname(__FILE__)).'/'.$new_name);
         run_activate_plugin_lite( dirname(dirname(__FILE__)).'/'.$new_name.'/learningx_lms_lite.php' );
