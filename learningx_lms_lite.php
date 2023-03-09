@@ -620,7 +620,7 @@ require $lx_plugin_paths['lx_lms_lite'] . 'addons/plugin-update-checker/plugin-u
 
 /** api for git hub integration **/
  $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-    'https://github.com/dev-divers1fy/learningx-lite/',
+    'https://github.com/kalpanavasava/lxrepoupdatecheck/',
     __FILE__,
     'learningx_lms_lite'
 );
