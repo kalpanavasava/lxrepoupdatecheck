@@ -1,0 +1,480 @@
+<style>
+.container{
+	max-width:100%;
+}
+.site-footer{
+	display:none;
+}
+.fliprec_favicon_lx{
+	width:6%;
+}
+@media (max-width: 767px){
+	.fliprec_favicon_lx {
+		width:13%;
+	}
+}
+.rectitlediv,.rectopbtndiv{
+	width:50%;
+	float:left;
+}
+@media (max-width: 767px){
+	.rectitlediv,.rectopbtndiv{
+		width:100%;
+	}
+}
+.rectopbtndiv{
+	text-align:end;
+}
+@media (max-width: 767px){
+	.rectopbtndiv{
+		text-align:inherit;
+	}
+}
+audio{
+	border: 1px solid;
+    border-radius: 25px;
+    color: #343a40;
+}
+<?php
+$hex = $color_palette['blue'];
+list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
+$rgbcolor = $r.','.$g.','.$b;
+?>
+audio::-webkit-media-controls-panel {
+  background-color: rgba(<?php echo $rgbcolor;?>,0.2);
+}
+audio::-webkit-media-controls-play-button,audio::-webkit-media-controls-mute-button{
+	color:<?php echo $color_palette['blue'];?>;
+	background-color:<?php echo $color_palette['blue'];?>;
+	border-radius:50%;
+}
+</style>
+<script src='<?php echo $lx_plugin_urls['lx_lms_lite'];?>addons/flip/assets/js/recorder.js'></script>
+<input type="hidden" class="redcolor" value="<?php echo $color_palette['red'];?>"/>
+<input type="hidden" class="trash_icon" value="<?php echo $square_icon['trash'];?>"/>
+<input type="hidden" class="flip_list_idparent" name="flip_list_id" value="<?php echo $flip_list_id;?>"/>
+<input type="hidden" class="recreturnurl" name="" value="<?php echo $return_url;?>"/>
+<div class="container vw_flip_canvas">
+	<form method="post" class="flip_recording_form">
+		<input type="hidden" id="recording_id" name="recording_id" value="<?php echo $recording_id;?>">
+		<input type="hidden" class="author_id" value="<?php echo $author_id;?>">
+		<input type="hidden" id="mode" value="<?php echo $mode;?>">
+		<input type="hidden" id="audio" value="<?php echo $audio;?>">
+		<div class="mt-2 mb-4 standarized_tab">
+			<div class="standarized_tab_inner_top">
+				<div class="d-flex rectitlediv">
+					<img id="favicon_lx" class="fliprec_favicon_lx" src="<?php echo get_stylesheet_directory_uri().'/assets/icons/favicon_learningx.png';?>">&nbsp;&nbsp;
+					<div class="top_div_head" style="margin-top:auto;">
+						<h6 class="head_h6">Fl1p Recording</h6>
+					</div>
+				</div>
+				<div class="top_div_button rectopbtndiv">
+					<button type="button" class="btn_normal_state" data-status="draft">SAVE AS DRAFT</button>
+					<button type="button" class="btn_normal_state flip_record_save" data-status="publish">PUBLISH</button>
+					<button type="button" class="btn_dark_state fliprec_cancel">CANCEL</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 flipreccolone">
+				<div class="form-group">
+					<?php 
+					$get_additional_notes = get_post_meta($recording_id,'additional_notes',true);
+					$adtxtvis = 'style="display:none"';$adtxtsmplevis = '';
+					if( !empty($get_additional_notes) ){
+						$adtxtvis = '';
+						$adtxtsmplevis = 'style="display:none"';
+					}
+					?>
+					<div class="fliprecsampletextblock flipviewblock" <?php echo $adtxtsmplevis;?>>
+						<button type="button" class="fliprecsampletextblockntn btn_normal_inverse_state m-2 allinversebtn">
+							<i class="<?php echo $square_icon['plus'];?>" aria-hidden="true"></i>
+						</button>
+						<div class="flipfontcenter">
+							<i class="<?php echo $flipicons['text'];?>" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div class="fliprectextblockdiv" <?php echo $adtxtvis;?>>
+						<textarea type="text" class="form-control fliprecadditional_notes" maxlength="2000" id="fliprecadditional_notes" name="fliprecadditional_notes" placeholder="Enter your text here..."><?php echo $get_additional_notes;?></textarea>
+						<div class="textarea_max_chars">
+							<small>
+								<a href="javascript:void(0);" data-toggle="popover" title="Formatting Tips" id="formatting-popover" data-placement="bottom"><span>Formatting Tips</span></a>
+								<div id="formatting-popover-content" class="popover-content">
+									<b>Bold</b> = *enter text here*<br>
+									<i>Italic</i> = _enter text here_<br>
+									Next line = ENTER<br>
+									Next paragraph = {N} enter text here<br>
+								</div>
+							</small>
+							<small class="small_txt_right">
+								<span id="additional_notes_chars">2000</span> characters remaining
+							</small>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<?php 
+					$allpdf = get_post_meta($recording_id,'recordingpdf_upload',true);
+					$milpdf = 'style="display:none;"';$milpdfsmple = '';
+					if(!empty($allpdf)){
+						$milpdf = '';	
+						$milpdfsmple = 'style="display:none;"';
+					}
+					?>
+					<div class="fliprecsamplepdfblock flipviewblock" <?php echo $milpdfsmple;?>>
+						<button type="button" class="fliprecsamplepdfblockbtn btn_normal_inverse_state m-2 allinversebtn">
+							<i class="<?php echo $square_icon['plus'];?>" aria-hidden="true"></i>
+						</button>
+						<div class="flipfontcenter">
+							<i class="<?php echo $flipicons['attachment'];?>" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div class="fliprecpdfblockdiv p-2" <?php echo $milpdf;?>>
+						<div class="fliprecmulpdfview">
+							<?php
+							$total_pdfcnt = 0;
+							if(!empty($allpdf)){
+								$total_pdfcnt = count($allpdf);
+								foreach( $allpdf as $pdfurl ){
+								?>
+								<div class="row mulpdfindrow" style="margin:unset">
+									<div class="col-md-10">
+										<i class="<?php echo $flipicons['attachment'];?>" aria-hidden="true"></i>
+										<span id="all_pdfspans"><?php echo urldecode( basename( $pdfurl ) );?></span>
+									</div>
+									<div class="col-md-2 d-flex justify-content-end">
+										<a href="javascript:void(0);" data-pdfname="<?php echo urldecode( basename( $pdfurl ) );?>" class="btn p-0 pdftrashsingle trash_icon_pdf" style="color:<?php echo $color_palette['red'];?>" ><i class="<?php echo $square_icon['trash'];?>" aria-hidden="true"></i></a>
+									</div>
+								</div>
+								<?php }
+							} ?>
+						</div>
+						<div class="pdf_attach_progress pt-1">
+							<div class="progress flip_progress_bar">
+								<div class="progress-bar" id="fliprec_mulpdf_progress" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+								</div>
+							</div>
+							<div style="height: 20px;"><small id="ispdfupload" class="ispdfupload"></small></div>
+							<!--<small id="emailHelp" class="form-text d-flex justify-content-end">80% uploaded</small>-->
+						</div>
+						<?php 
+						$flippdfuploadstuff = '';
+						if( $total_pdfcnt >= 2 ){
+							$flippdfuploadstuff = 'style="display:none;"';	
+						}
+						?>
+						<div class="pt-1 fliprecmulpdffielddiv" <?php echo $flippdfuploadstuff; ?>>
+							<label for="fliprecmulpdfupload">
+								<input type="file" class="fliprecmulpdfupload" id="fliprecmulpdfupload" hidden accept=".pdf" />
+								<div class="file_upload_pdf">
+									<img for="actual-btn" src="<?php echo $lx_plugin_urls['lx_lms_lite'].'assets/img/add.png'; ?>">
+								</div>
+							</label>
+							<span id="file-chosen">No file chosen</span>
+						</div>
+					</div>
+				</div>
+				<?php /* echo "<pre>";print_r($color_palette['hyperlinks']); */?>
+			</div>
+			<div class="col-md-8 flipreccoltwo">
+				<div class="form-group">
+					<?php 
+					$sliderimage = get_post_meta($recording_id,'recording_multiple_image_path',true);
+					/* echo "<pre>";print_r($sliderimage); */
+					$sliderimgsmplestyle = '';$sliderimgstyle = 'style="display:none;"';
+					if(!empty($sliderimage)){
+						$sliderimgsmplestyle = 'style="display:none;"';
+						$sliderimgstyle = '';
+					}
+					?>
+					<div class="flirecsamplemulimageblock flipviewblock" <?php echo $sliderimgsmplestyle;?>>
+						<button type="button" class="flirecsamplemulimageblockbtn btn_normal_inverse_state m-2 allinversebtn">
+							<i class="<?php echo $square_icon['plus'];?>" aria-hidden="true"></i>
+						</button>
+						<div class="flipfontcenter">
+							<i class="<?php echo $flipicons['images'];?>" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div class="Image_block flirecmulimageblock p-3" <?php echo $sliderimgstyle;?>>
+						<div class="">
+							<div class="pt-1">
+								<label for="recording_sliderimgagesfld"> 
+									<div class="file_upload">
+										<img id="recording_sliderimgages" class="recording_sliderimgages" name="recording_sliderimgages" 
+										src="<?php echo $lx_plugin_urls['lx_lms_lite'].'assets/img/add.png'; 
+										?>"/>
+										<input type="file" class="upload-input recording_sliderimgagesfld upload_file" id="recording_sliderimgagesfld" name="recording_sliderimgagesfld" accept="image/jpg, image/jpeg, image/png" hidden multiple />
+									</div>
+								</label>
+							</div>
+							<div class="img_list">
+								<?php 
+								if(!empty($sliderimage)){
+									foreach( $sliderimage as $sliderimg ){
+										?>
+										<div class="dynamic_images">
+											<div class="img_div" style="position: relative;margin: 10px;">
+												<img class="recording_multi_img" src="<?php echo $sliderimg['original'];?>"/>
+												<button type="button" data-img_name="<?php echo basename($sliderimg['resized']);?>" class="btn_danger_state trash_recording_img delete_multi_img" style="position: absolute;right: 0;"><i class="<?php echo $square_icon['trash'];?>" aria-hidden="true"></i></button>
+											</div>
+										</div>
+										<?php
+									}
+								}
+								?>
+							</div>
+							<div class="mt-1">
+								<div class="images_attach_progress_div">
+									<div class="progress flip_progress_bar">
+										<div class="progress-bar" id="recording_images_progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+										</div>
+									</div>
+									<small id="emailHelp" class="form-text recording_images_upload_status"></small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="config_and_setting_block d-none">
+				<div>
+					<h6 class="d-flex align-items-center">
+						<i class="fa-solid fa-gear attach_icon-bg" aria-hidden="true"></i>
+						<span class="pl-1">Configuration & Setting</span>
+					</h6>
+				</div>
+				<div class="block_border">
+					<div>
+						<label for="actual-btn"> 
+							<input type="file" id="actual-btn" hidden />
+							<img src="<?php echo $lx_plugin_urls['lx_lms_lite'].'assets/img/add.png'; ?>">
+							<!--<button class="btn btn_edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>-->
+						</label>
+						<div class="form-group  default_img_attach_progress">
+							<div class="progress flip_progress_bar">
+								<div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+								</div>
+							</div>
+							<small id="emailHelp" class="form-text"></small>
+						</div>
+					</div>
+					<div class="form-group d-flex ai_center m-0">
+						<div>
+							<label class="lx_toggle flip_recording_toggles">
+								<input type="checkbox" class="turncommunitywebhookon_pro" id="turncommunitywebhookon_pro" name="turncommunitywebhookon_pro" disabled>
+									<span class="off"><i class="<?php echo $square_icon['toggle_off'];?>"></i></span>
+									<span class="on toggle_on"><i class="<?php echo $square_icon['toggle_on'];?>"></i></span>
+							</label>
+						</div>
+						<div class="p-1">
+							<strong>Allow Replies/ Responses</strong>
+						</div>
+					</div>
+					<div class="form-group d-flex ai_center m-0">
+						<div>
+							<label class="lx_toggle flip_recording_toggles">
+								<input type="checkbox" class="turncommunitywebhookon_pro" id="turncommunitywebhookon_pro" name="turncommunitywebhookon_pro" <?php echo $add_setting;?> disabled>
+									<span class="off"><i class="<?php echo $square_icon['toggle_off'];?>"></i></span>
+									<span class="on toggle_on"><i class="<?php echo $square_icon['toggle_on'];?>"></i></span>
+							</label>
+						</div>
+						<div class="p-1">
+							<strong>Replies/ Responses are visible to everyone (default id ONLY Admin/Owner/Manager)</strong>
+						</div>
+					</div>
+					<?php
+					/* $flip_list_id */
+					if( !is_plugin_active(VWPLUGIN_PRO) ){ 
+					?>
+					<div class="form-group pt-4">
+						<label for="add_to_this_fliplist">Add to a Fl1plist</label>
+					</div>
+					<?php
+					}else{
+						RecordingCommunityRelatedUI($flip_list_id);
+					} 
+					?>
+					
+				</div>
+			</div>
+		</div>
+		<?php 
+		echo do_shortcode( '[FlipFunctionSettingsUIHK fliprec_id="'.$recording_id.'" fliplistselected="'.$flip_list_id.'"]' );
+		?>
+		<div class="row mt-3">
+			<div class="col-md-4">
+				<div class="basic_info_block flipsettingbtn" style="cursor:pointer;">
+					<div class="basic_info_div block_border">
+						<div class="row">
+							<div class="col-md-1"><i class="<?php echo $square_icon['infobox'];?> flipinfoicon" aria-hidden="true"></i></div>
+							<div class="col-md-9">
+								<?php
+								$getsettings = get_post_meta($recording_id,'settings_array',true);
+								$getflipargs = array(
+									'post_type' => 'flip_list',
+									'post_status' => 'publish',
+									'posts_per_page' => -1,
+									'author' => get_current_user_ID(),
+								);
+								$get_flip_list = get_posts($getflipargs);
+								$defaultfliplist = array();
+								foreach( $get_flip_list as $fliplists ){
+									if( !empty( get_post_meta($fliplists->ID,'registertimelist',true) ) ) {
+										$defaultfliplist[] = $fliplists;
+									}
+								}
+								/* echo "<pre>";print_r($defaultfliplist); */
+								$set_comm = 'None';$set_myfliplist = $defaultfliplist[0]->post_title;$setcolorcomm=$color_palette['grey'];
+								
+								if( !empty($getsettings['communities']) ){
+									$set_comm = $getsettings['communities'];
+									$setcolorcomm = $color_palette['green'];
+								}
+								if(!empty($flip_list_id) && $mode !='edit'){
+									$selcomid = get_post_meta($flip_list_id,'attach_this_fliplist',true);
+									$getselcomtit = 'None';
+									if(!empty($selcomid)){
+										$getselcomtit = get_post($selcomid)->post_title;
+									}
+									$setcolorcomm = $color_palette['green'];
+									$set_comm = $getselcomtit;
+								}
+								if(!empty($getselcomtit) && !empty($set_comm) && $set_comm !='None' && $getselcomtit !=$set_comm){
+									$set_comm = 'Multiple';
+								}
+								if( !empty($getsettings['my_fliplist']) ){
+									$set_myfliplist = $getsettings['my_fliplist'];
+								}
+								if(!empty($getselcomtit) && !empty($set_myfliplist)){
+									$set_myfliplist = 'Multiple';
+								}
+								?>
+								<input type="hidden" value="<?php echo $color_palette['green'];?>" class="color-green" />
+								<input type="hidden" value="<?php echo $color_palette['grey'];?>" class="color-grey" />
+								<div>Replies: <span class="fliprecsetreplies" style="color:<?php echo $color_palette['green'];?>">OFF</span></div>
+								<div>Replies Visibility: <span class="fliprecsetrest" style="color:<?php echo $color_palette['green'];?>">Restricted</span></div>
+								<?php 
+								if(is_plugin_active(VWPLUGIN_PRO)){
+								?>
+									<div>Communities: <span class="fliprecsetcomm" style="color:<?php echo $setcolorcomm;?>"><?php echo $set_comm;?></span></div>
+								<?php } ?>
+								<div>My Fl1plists: <span class="fliprecsetmyfliplist" style="color:<?php echo $color_palette['green'];?>"><?php echo $set_myfliplist;?></span></div>
+							</div>
+							<div class="col-md-1 d-flex align-items-end">
+								<i class="fal fa-gear flip_icons" style="cursor:pointer;" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<?php 
+				$audiorec = '';
+				if( !empty( get_post_meta( $recording_id,'flip_recording_audio',true ) ) ){
+					$audiorec = get_post_meta( $recording_id,'flip_recording_audio',true );
+					/* $audiorec = 'https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3'; */
+				}
+				?>
+				<div class="audio_control_preview">
+					<audio controls controlsList="nodownload noplaybackrate" src="<?php echo $audiorec; ?>" id="auidosource">
+						Your browser does not support the audio element.
+					</audio>
+				</div>
+			</div>
+		</div>
+		<div class="row bg-dark">
+			<div class="col-md-4">
+				<div>
+					<div class="form-group m-1">
+						<?php 
+						$uid = get_current_user_ID();
+						$rectitle = get_user_meta($uid ,'first_name',true).' '.get_user_meta($uid ,'last_name',true);
+						if(empty(trim($rectitle))){
+							$rectitle = get_user_by( 'id' , $uid )->user_nicename;
+						}
+						if( get_post($recording_id)->post_title != 'temp-recording' && !empty(get_post($recording_id)->post_title) ){
+							$rectitle = get_post($recording_id)->post_title;
+						}
+						?>
+						<div class="fliptitleprevdiv" style="color:#fff;font-size:20px;">
+							<span class="fliptitleprevdivspan"><?php echo $rectitle;?></span>
+							<i style="float:right;font-size: 14px;cursor:pointer;" class="<?php echo $square_icon['edit'];?> edittitlebtn"></i>
+						</div>
+						<div class="fliptitlefielddiv" style="display:none;">
+							<input type="text" class="form-control inp_title fliprectitle" id="" value="<?php echo $rectitle;?>" placeholder="Fl1p Recording Title">
+						</div>
+					</div>
+					<div class="form-group m-1">
+						<?php 
+						$subtitle = date('jS F Y - h:i A',strtotime( get_post( $recording_id )->post_date ));
+						if( !empty(get_post_meta($recording_id,'subtitle',true)) ){
+							$subtitle = get_post_meta($recording_id,'subtitle',true);
+						}
+						?>
+						<div class="flipsubtitleprevdiv" style="color:#fff;">
+							<?php echo $subtitle;?>
+						</div>
+						<div class="flipsubtitlefielddiv" style="display:none;">
+							<input type="text" class="form-control inp_subtitle fliprecsubtit" id="" value="<?php echo $subtitle;?>" placeholder="Fl1p Recording Subtitle">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="d-flex recording_tools_main_div">
+					<div class="text-center">
+					<?php 
+					$audiogt = get_post_meta($recording_id,'flip_recording_audio',true);
+					/* echo "<pre>";print_r($flipicons); */
+					$isdelete = 'disabled="disabled"';$is_start = '';$rectxt = '';
+					if(!empty($audiogt)){
+						$isdelete = '';
+						$is_start = 'disabled="disabled"';
+						$rectxt = 'style="display:none;"';
+					}
+					?>
+					
+						<input type="hidden" class="pauseicon" value="<?php echo $flipicons['pause'];?>">
+						<input type="hidden" class="starticon" value="<?php echo $flipicons['audio_recording'];?>">
+						<input type="hidden" class="reclap" value="1">
+						<button type="button" class="btn rst_audio_btn audio_start" <?php echo $is_start;?> id="audio_start"><i class="<?php echo $flipicons['audio_recording'];?>" aria-hidden="true"></i></button>
+						<button type="button" class="btn rst_audio_btn audio_pause" id="audio_pause" style="display:none;"><i class="<?php echo $flipicons['pause'];?>" aria-hidden="true"></i></button>
+						<button type="button" class="btn rst_video_btn" disabled><i class="<?php echo $flipicons['video'];?>" aria-hidden="true"></i></button>
+						<button type="button" class="btn rst_upload_btn" disabled><i class="<?php echo $flipicons['uploadtocloud'];?>" aria-hidden="true"></i></button>
+					</div>
+					<div class="flip_recording_progress_div d-flex align-items-center">
+						<div class="progress flip_recording_progress_bar" style="margin-top: -10px;">
+							<div class="progress-bar" id="flip_recording_progress" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+							</div>
+						</div>
+						<small id="emailHelp" class="form-text flip_recording_upload_status" style="margin-top: -10px;"></small>
+						<small id="emailHelp" class="form-text flip_recording_progress_text" style="margin-top: -10px;"></small>
+					</div>
+				</div>
+				<input type="hidden" id="ResetStaus" value="0">
+				<div class="d-flex center_div">
+					<div class="p-1">
+						<div class="text-center text-white">
+							<span class="rectooltxt" <?php echo $rectxt; ?>>Recording Tools</span>
+							<div class="recording" id="aud-record-status">
+								<div><strong id="timer"></strong></div>
+								<div id="timer_text">of 15:00 max</div>
+							</div>
+							<!--<span>of 15:00 max</span> -->
+						</div>
+					</div>
+					<div class="align-items-center d-flex">
+						<div class="p-2" style="margin-left: 20px;">
+							<button type="button" class="btn btn-light m-1 save_recording_icon btn_save_recording" id="btn_save_recording" disabled="disabled"><i class="<?php echo $square_icon['save'];?>" aria-hidden="true"></i></button>
+							
+							<button type="button" class="btn btn-light m-1 delete_recording_icon btn_delete_recording" data-id="<?php echo $recording_id;?>" <?php echo $isdelete; ?>><i class="<?php echo $square_icon['trash'];?>" aria-hidden="true"></i></button>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</form>
+<input type="hidden" class="hidden_back_link_recording" value="<?php echo  $_SERVER['HTTP_REFERER'];?>"/>
+</div>
+<script src='<?php echo $lx_plugin_urls['lx_lms_lite'] . 'addons/flip/assets/js/audio.js'?>' ></script>

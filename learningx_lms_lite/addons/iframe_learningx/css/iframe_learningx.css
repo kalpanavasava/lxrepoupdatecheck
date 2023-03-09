@@ -1,0 +1,107 @@
+body {
+    width: 100%;
+    height: 95vh;
+    position: fixed;
+    max-width: 100%;
+    max-height: 100vh;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+#menu-iframe-menu {
+    margin: 0px;
+}
+
+#menu-iframe-menu li {
+    background-color: #333333;
+    list-style: none;
+}
+
+#quadmenu {
+    padding-top: 30px;
+}
+
+div.storyline iframe {
+    width: 100% !important;
+    min-height: 86vh;
+    max-height: 85vh;
+    height: 86vh !important;
+}
+
+div.newsfeed-lesson iframe {
+    width: 100% !important;
+    min-height: 86vh;
+    max-height: 95vh;
+    height: 100vh !important;
+}
+
+@media screen and (min-height: 750px)  {
+    div.storyline iframe {
+        width: 100% !important;
+        min-height: 93vh;
+        max-height: 100vh;
+        height: 93vh !important;
+    }
+    
+    div.newsfeed-lesson iframe {
+        width: 100% !important;
+        min-height: 86vh;
+        max-height: 95vh;
+        height: 100vh !important;
+    }
+    
+}
+
+@media screen and (min-height: 600px) and (max-height: 749px)  {
+    div.storyline iframe {
+        width: 100% !important;
+        min-height: 91vh;
+        max-height: 100vh;
+        height: 91vh !important;
+    }
+    
+    div.newsfeed-lesson iframe {
+        width: 100% !important;
+        min-height: 86vh;
+        max-height: 90vh;
+        height: 100vh !important;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    
+}
+
+@media screen and (min-height: 500px) and (max-height: 599px)  {
+    div.storyline iframe {
+        width: 100% !important;
+        min-height: 89vh;
+        max-height: 100vh;
+        height: 89vh !important;
+    }
+    
+    div.newsfeed-lesson iframe {
+        width: 100% !important;
+        min-height: 86vh;
+        max-height: 87vh;
+        height: 100vh !important;
+    }
+}
+
+@media screen and (max-height: 499px)  {
+    div.storyline iframe {
+        width: 100% !important;
+        min-height: 89vh;
+        max-height: 100vh;
+        height: 89vh !important;
+    }
+    
+    div.newsfeed-lesson iframe {
+        width: 100% !important;
+        min-height: 86vh;
+        max-height: 82vh;
+        height: 100vh !important;
+    }
+}

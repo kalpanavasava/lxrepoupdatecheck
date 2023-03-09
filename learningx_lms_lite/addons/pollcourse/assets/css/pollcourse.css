@@ -1,0 +1,99 @@
+.standarized_tab{
+    position: relative;
+    background: #fff;
+    display: flex;
+}
+.standarized_tab_inner_top{
+	font-family: "Nunito", sans-serif !important;
+    padding: 7px;
+    width: 100%;
+    border-bottom: 2px solid #0000001a;
+}
+.top_div_button{
+	margin-left: auto;
+}
+.standarized_tab_inner_bottom{
+	font-family: "Nunito", sans-serif !important;
+    padding: 7px;
+    width: 100%;
+    border-top: 2px solid #0000001a;
+	text-align: right;
+}
+.popover-header{	
+	text-align: center;	
+}
+.break_line{
+	width: 100%;
+	border-bottom: 2px solid #0000001a;
+	margin-bottom: 5px
+}
+.hide_introduction, .hide_conclusion{
+	margin-left: auto;
+}
+.make_restart_text, .make_course_complete_text, .multiple_ans_text, .make_textentry_answer_text{
+	margin-top: 5px;
+}
+.remove_Answer_btn button{
+	margin-top: 20px;
+}
+.question_collapsed_expanded{
+	margin-left: auto;
+}
+.question_head{
+	margin-top: 8px;
+}
+.ans_head{
+	padding: 10px;
+    margin-bottom: -5px;
+    margin-top: -5px;	
+}
+.preview_title{
+	text-align:center;
+	margin-bottom: -4px;
+}
+.preview_bottom_line{
+	width: 100%;
+	border-bottom: 2px solid #0000001a;
+}
+.screen_note_div{
+	margin-top:15px;
+}
+.screen_note{
+	border:1px solid lightskyblue;
+	margin-left: 70px;
+    margin-right: 70px;
+    padding: 5px;
+}
+/* --------------------------------Poll Course Page CSS---------------------------------- */
+.pollcontent_heading_div{
+	text-align:center;
+}
+.pollcontent_div{
+	margin-top: 20px;   
+}
+.introduction_heading,.question_heading,.conclusion_heading{
+	font-family: "Nunito", sans-serif !important;
+}
+.introduction_text,.conclusion_text{
+	margin-top: 20px; 
+}
+.break_line_poll_ui{
+	border-bottom: 2px solid #0000001a;
+    margin-bottom: 20px;
+} 
+.btn_next_intro, .btn_next_question, .btns_conclusion{
+	float:right;
+}
+.pollcontent_thumbnail{
+	width:100%;
+}
+.answer_div_main{
+	margin-top: 20px;
+    margin-bottom: 20px;
+}
+.text_answer{
+	background-color:white;
+}
+.multiple_answer_text{
+	font-style: italic;
+}

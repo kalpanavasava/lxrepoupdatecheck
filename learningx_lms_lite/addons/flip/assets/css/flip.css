@@ -1,0 +1,189 @@
+/*************** Fliplist CSS ***************/
+.fliplist_tab_inner_top{
+	font-family: "Nunito", sans-serif !important;
+    padding: 7px;
+    width: 100%;
+    border-bottom: 2px solid #0000001a;
+}
+.fliplist_top_button{
+	margin-left: auto;
+}
+.fliplist_tab_inner_bottom{
+	font-family: "Nunito", sans-serif !important;
+    padding: 7px;
+    width: 100%;
+    border-top: 2px solid #0000001a;
+	text-align: right;
+}
+.fliplist_head{
+	margin-top: auto;
+}
+#fliplist_title, #fliplist_subtitle,#fliplist_description{
+	background-color:white;
+}
+.small_txt_right{
+	float: right;
+	color:lightgray;
+}
+.fliplist_thumb_input, .popover-content, .toggle_on{
+	display:none;
+}
+.toggle_div{
+	margin-top: -20px;
+}
+.sponsored_text, .featured_text{
+	color:lightgray;
+}
+.fliplist_desc_lbl{
+	color:gray;
+	margin-bottom: auto;
+}
+.question_style{
+	color: #3377ff;
+}
+.community_selection{
+	padding:8px;
+	background-color:white;
+	width:100%;
+}
+.upload_thumb_txt{
+	text-align:right;
+}
+.fliplist_content{
+	margin-top:20px;
+}
+.edit_fliplist{
+	text-align: end;
+}
+.btn_draft_popup_yes,.btn_draft_popup_cancel{
+	width: 70px;
+    margin-top: 10px;
+	margin-right: 5px;
+}
+.btn_draft_popup_yes,.btn_draft_popup_cancel{
+	width: 70px;
+    margin-top: 10px;
+	margin-left: 5px;
+}	
+	
+
+/*************** Flip Recording CSS ***************/
+.flip_recording_form{
+	margin-top: 20px;
+}
+.vw_flip_canvas .expand-icon{
+	float: right;
+	margin-top: -30px;
+	padding: 5px;
+}
+.vw_flip_canvas .inp_title, .vw_flip_canvas .inp_subtitle{
+	background: #FFFFFF;
+}
+.vw_flip_canvas .attach_icon-bg{
+	background: #ccc;
+	padding: 5px;
+	width: 15px;
+	height: 15px;
+}
+.vw_flip_canvas .fa-trash-can{
+	color:#ff0000;
+}
+.vw_flip_canvas .file_upload{
+	width:150px;
+	height:100px;
+}
+.vw_flip_canvas .file_upload img{
+	width:100%;
+	height:100%;
+}
+.vw_flip_canvas .Image_block .img_list{
+	overflow:auto;
+	padding-bottom:5px;
+	display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+}
+/* .vw_flip_canvas .Image_block .img_list .img_div{
+	width:100px;
+	height:100px;
+} */
+.vw_flip_canvas .Image_block .img_list .img_div img{
+	width:100%;
+	height:100%;
+}
+.vw_flip_canvas .config_and_setting_block .btn_edit{
+	background: #03A9F4;
+	color: #fff;
+	padding: 5px 8px;
+	border: 1px solid #03A9F4;
+	position: absolute;
+	right: 27px;
+}
+.vw_flip_canvas .config_and_setting_block table, td, th{
+	border:none;
+}
+.vw_flip_canvas .config_and_setting_block table tr th{
+	border-bottom: 1px solid #0000001a;
+}
+.recording_tools_main_div{
+	margin-top: -31px;
+}
+@media (max-width:767px){
+	.recording_tools_main_div{
+		margin-top: 0px;
+	}
+}
+.flip_recording_progress_div{
+	margin-bottom: -4px;
+	margin-left: 30px;
+} 
+.flip_recording_progress_bar{
+	width: 100px;
+}
+.rst_audio_btn, .rst_video_btn, .btn_del_recording_popup_yes{
+	margin-right: 10px;
+}
+.default_thumbnail_input{
+	display:none;
+}
+.flip_recording_toggles{
+	position:relative;
+}
+@media (max-width:767px){
+	.vw_flip_canvas .recording_tools{
+		/* margin-top:-129px;
+		position:absolute; */
+	}
+	.center_div{
+		display:flex;
+		justify-content:center;
+	}
+	.sw_floating_widget_button{
+		visibility: hidden;
+	}
+	.replies_btns_main{
+		top:-50px;
+	}
+	.replies_txt{
+		position: relative;
+		top: 75px;
+	}
+	.replies_txt{
+		margin-top: -77px;
+		margin-left: 241px;
+	} 
+	.count_recresponses{
+		margin-top: 34px;
+		position:absolute; 
+		margin-left:-30px; 
+	}
+}
+@media(min-width:768px){
+	.replies_btns{
+		margin-top:-50px;
+	}
+	.count_recresponses{
+		position:absolute; 
+		margin-left:-28px; 
+		top:-15px;
+	}
+}

@@ -1,0 +1,29 @@
+.twoxlines{
+   /*  line-height: 1.5em;
+    height: 3em;
+    overflow: hidden; */
+	display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card-title{
+	margin-bottom
+}
+.mt-0_75em{
+	margin-top:0.75em;
+}
+.onhtips{
+	float:left;
+}
+.content_editable{
+	height: 100px !important;
+    overflow: auto;
+}
+.asp_product_buy_btn_container{ margin-top: 0px !important; }
+/* .style_2_main_div .asp_product_buy_button{
+	width: 70%;
+	display: flex !important;
+    justify-content: end;
+    padding-right: 10px;
+} */
