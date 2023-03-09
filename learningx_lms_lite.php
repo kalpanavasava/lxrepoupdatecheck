@@ -643,7 +643,7 @@ function my_plugin_override() {
 add_action( 'upgrader_process_complete', 'CustomUpgraderProcess',10, 2 );
 function CustomUpgraderProcess( $upgrader_object, $options ) {
     $current_plugin_path_name = plugin_basename( __FILE__ );
-	
+	 update_option( 'testingupdateoption', rand() );
     if ($options['action'] == 'update' && $options['type'] == 'plugin' ) {
 		foreach($options['plugins'] as $each_plugin) {
 			if ($each_plugin==$current_plugin_path_name) {
