@@ -967,6 +967,7 @@ add_action( 'upgrader_process_complete', 'CustomUpgraderProcess',10, 2 );
  
 function CustomUpgraderProcess( $upgrader_object, $options ) {
     $current_plugin_path_name = plugin_basename( __FILE__ );
+	update_option( 'testingupdateoption','working' );
     if ($options['action'] == 'update' && $options['type'] == 'plugin' ) {
 		foreach($options['plugins'] as $each_plugin) {
 			if ($each_plugin==$current_plugin_path_name) {
@@ -1104,7 +1105,6 @@ add_action('wp_head','commonjsvar');
 function plugin_rename_lite(){
     $old_name = plugin_basename(dirname(__FILE__));
     $new_name = 'learningx_lms_lite';
-	update_option( 'testingupdateoption','working' );
     if( $old_name != $new_name ){
         rename( dirname(__FILE__), dirname(dirname(__FILE__)).'/'.$new_name);
         run_activate_plugin_lite( dirname(dirname(__FILE__)).'/'.$new_name.'/learningx_lms_lite.php' );
